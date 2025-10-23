@@ -1,7 +1,6 @@
 package adocao;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,6 +8,7 @@ public class MainTest {
     public static void main(String[] args) {
     ImportFile ifi = new ImportFile();
     Scanner sc = new Scanner(System.in);
+        ArrayList<CadastrarAnimal> ca = new ArrayList<>();
     int opcao = -1;
     do{
         System.out.println("Menu - Escolha uma das opções abaixo: ");
@@ -25,7 +25,56 @@ public class MainTest {
         switch (opcao) {
             case 1:
                 ifi.readerFile();
-                break;
+                System.out.println("Escreva o nome e sobrenome do pet abaixo: ");
+                String nome = sc.nextLine();
+
+                System.out.println("Escreva o tipo do pet(Cachorro/Gato) abaixo: ");
+                String tipo = sc.nextLine();
+
+                System.out.println("Qual o sexo do animal (M/F)? ");
+                String sexo = sc.nextLine();
+
+                System.out.println("Escreva o endereço que o pet foi encontrado abaixo: ");
+                System.out.println("Numero da casa: ");
+                String numCasa = sc.nextLine();
+
+                System.out.println("Cidade: ");
+                String cidade = sc.nextLine();
+
+                System.out.println("Rua: ");
+                String rua = sc.nextLine();
+
+                System.out.println("Bairro: ");
+                String endereco = sc.nextLine();
+
+                System.out.println("Qual a idade aproximada do pet?");
+                String idade = sc.nextLine();
+
+                System.out.println("Qual o peso aproximado do pet? ");
+                String peso = sc.nextLine();
+
+                System.out.println("Qual a raça do pet? ");
+                String raca = sc.nextLine();
+                try {
+                CadastrarAnimal cadastrarAnimal = new CadastrarAnimal();
+                cadastrarAnimal.setNome(nome);
+                cadastrarAnimal.setTipo(TipoAnimal.fromString(tipo));
+                cadastrarAnimal.setSexo(SexoAnimal.fromString(sexo));
+                cadastrarAnimal.setEndereco(endereco);
+                cadastrarAnimal.setNumCasa(numCasa);
+                cadastrarAnimal.setCidade(cidade);
+                cadastrarAnimal.setRua(rua);
+                cadastrarAnimal.setIdade(idade);
+                cadastrarAnimal.setPeso(peso);
+                cadastrarAnimal.setRaca(raca);
+
+                ca.add(cadastrarAnimal);
+                System.out.println("Pet cadastrado com sucesso!");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro ao cadastrar pet: " + e.getMessage());
+            }
+            break;
+
             case 2:
             case 3:
             case 4:
