@@ -1,18 +1,19 @@
 package adocao;
 
+import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CadastrarAnimal {
     private String nome;
     private String tipo;
-    private char sexo;
+    private SexoAnimal sexo;
     private String endereco;
-    private int idade;
+    private double idade;
     private double peso;
     private String raca;
 
-    public CadastrarAnimal(String nome, String tipo, char sexo, String endereco, int idade, double peso, String raca) {
+    public CadastrarAnimal(String nome, String tipo, SexoAnimal sexo, String endereco, double idade, double peso, String raca) {
         this.nome = nome;
         this.tipo = tipo;
         this.sexo = sexo;
@@ -27,7 +28,7 @@ public class CadastrarAnimal {
     }
 
     public void setNome(String nome) {
-        Pattern pattern = Pattern.compile("[^a-zA-Z]+\\s[a-zA-Z]+");
+        Pattern pattern = Pattern.compile("^[a-zA-Z]+\\s[a-zA-Z]+");
         Matcher matcher = pattern.matcher(nome);
         if(matcher.matches()){
             this.nome = nome;
@@ -44,11 +45,11 @@ public class CadastrarAnimal {
         this.tipo = tipo;
     }
 
-    public char getSexo() {
+    public SexoAnimal getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(SexoAnimal sexo) {
         this.sexo = sexo;
     }
 
@@ -60,12 +61,21 @@ public class CadastrarAnimal {
         this.endereco = endereco;
     }
 
-    public int getIdade() {
+    public double getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setIdade(double idade) {
+        try{
+        if(idade > 20){
+        throw new IllegalArgumentException("Idade não pode ser maior que 20");
+        }else{
+            this.idade = idade;
+        }
+        }
+        catch(InputMismatchException e){
+            System.out.println("Digite somente numeros! ");
+        }
     }
 
     public double getPeso() {
@@ -73,7 +83,15 @@ public class CadastrarAnimal {
     }
 
     public void setPeso(double peso) {
-        this.peso = peso;
+
+        try{
+        if(peso <0.5 || peso > 60){
+          throw  new IllegalArgumentException("Peso inválido");
+        } else{
+            this.peso = peso;
+        }} catch (InputMismatchException e) {
+            System.out.println("Digite somente numeros! ");
+        }
     }
 
     public String getRaca() {
@@ -88,5 +106,18 @@ public class CadastrarAnimal {
         } else{
             System.out.println("Somente letras são permitidas.");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "CadastrarAnimal{" +
+                "nome='" + nome + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", sexo=" + sexo +
+                ", endereco='" + endereco + '\'' +
+                ", idade=" + idade +
+                ", peso=" + peso +
+                ", raca='" + raca + '\'' +
+                '}';
     }
 }
