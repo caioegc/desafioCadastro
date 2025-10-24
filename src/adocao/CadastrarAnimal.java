@@ -47,7 +47,7 @@ public class CadastrarAnimal {
         if(matcher.matches()){
             this.nome = nome;
         } else{
-            System.out.println("Nome deve ser composto!!");
+            throw new IllegalArgumentException("Nome deve ser composto!!");
         }} catch (IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
@@ -125,13 +125,14 @@ public class CadastrarAnimal {
     public void setRaca(String raca) {
         Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
         Matcher matcher = pattern.matcher(raca);
-        if (raca.isEmpty()){
+        if (raca.trim().isEmpty() || raca == null){
             this.raca = info;
+            return;
         }
         if(matcher.matches()){
             this.raca = raca;
         } else{
-            System.out.println("Somente letras são permitidas.");
+            throw new IllegalArgumentException("Somente letras são permitidas.");
         }
     }
 
@@ -139,11 +140,11 @@ public class CadastrarAnimal {
         return numCasa;
     }
 
-    public void setNumCasa(String NumCasa) {
-        if(NumCasa.isEmpty()){
+    public void setNumCasa(String numCasa) {
+        if(numCasa.trim().isEmpty() || numCasa == null){
         this.numCasa = info;
         } else{
-            this.numCasa = numCasa;
+            this.numCasa = numCasa.trim();
         }
     }
 
@@ -160,7 +161,7 @@ public class CadastrarAnimal {
     }
 
     public void setCidade(String cidade) {
-        cidade = cidade;
+        this.cidade = cidade;
     }
 
     @Override
